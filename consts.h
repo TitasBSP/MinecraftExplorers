@@ -1,0 +1,1 @@
+#define nightCard 1
