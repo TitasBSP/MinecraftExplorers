@@ -1,9 +1,13 @@
 #include <iostream>
 #include <cstdlib>
 #include <map>
+#include <vector>
+#include <algorithm>
 
 #include <ctype.h>
 #include "values.h"
+
+typedef std::vector<int> intVector;
 
 /*
 Cards based off the statistics in this PDF!
@@ -20,30 +24,55 @@ int generateCards() {
     return 0;
 }
 
-void assignChestValues() {
-    int chests[12] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12};
+intVector assignChestValues() {
+    intVector chests = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12};
     int index = 5;
 
-    string difficulty;
+    int difficulty;
 
-    cout << "What difficulty would you like to have? \n[EASY] - [MEDIUM] - [HARD] - [HARDCORE] " << endl;
+    cout << "What difficulty would you like to have? \n[1: EASY] - [2: MEDIUM] - [3: HARD] - [4: HARDCORE] " << endl;
     cin >> difficulty;
 
-    if (difficulty == "medium") {
-        index = 6;
-    } else if (difficulty == "hard") {
-        index = 7;
-    } else if (difficulty == "hardcore") {
-        index = 8;
+    switch (difficulty) {
+        case 2:
+            index = 6;
+        case 3:
+            index = 7;
+        case 4:
+            index = 8;
+    };
+
+    intVector pickedChests = {};
+
+    for (int i = 0; i <= index*2; i++) {
+        int chosenChest = (rand() % 12) + 1; 
+
+        for (int i = 0; i <= sizeof(chests) / 4; i++) {
+            if (chosenChest == chests[i]) {
+                pickedChests.push_back(chosenChest);
+
+                auto picker = std::find(chests.begin(), chests.end(), chosenChest);
+                if (picker != chests.end()) {
+                    chests.erase(picker);
+                }
+            } else {
+                continue;
+            };
+
+        };
+    };
+
+    for (int chests : pickedChests) {
+        cout << chests << endl;
     }
 
-    for (int i = 0; i <= index; i++)
-    int pickedChests[index] = {};
+    return pickedChests;
 };
 
 int main() {
 
-    // cout << itemValues["Map"] << endl;
+    assignChestValues();
+
     return 0;
 }
 
