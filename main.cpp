@@ -34,43 +34,51 @@ intVector assignChestValues() {
     cin >> difficulty;
 
     switch (difficulty) {
-        case 2:
-            index = 6;
-        case 3:
-            index = 7;
-        case 4:
-            index = 8;
+        case 2: index = 6; break;
+        case 3: index = 7; break;
+        case 4: index = 8; break;
+        default: index = 5; break;
     };
 
     intVector pickedChests = {};
+    system("clear");
 
-    for (int i = 0; i <= index*2; i++) {
-        int chosenChest = (rand() % 12) + 1; 
+    for (int i = 0; i < index; i++) {
+        int randIndex = rand() % chests.size(); 
+        int chosenChest = chests[randIndex];
 
-        for (int i = 0; i <= sizeof(chests) / 4; i++) {
-            if (chosenChest == chests[i]) {
-                pickedChests.push_back(chosenChest);
-
-                auto picker = std::find(chests.begin(), chests.end(), chosenChest);
-                if (picker != chests.end()) {
-                    chests.erase(picker);
-                }
-            } else {
-                continue;
-            };
-
-        };
+        pickedChests.push_back(chosenChest);
+        chests.erase(chests.begin() + randIndex);
     };
 
-    for (int chests : pickedChests) {
-        cout << chests << endl;
+    for (int chesters : pickedChests) {
+        cout << chesters << endl;
     }
+
+    cout << "Debug index amount: " << index << endl;
 
     return pickedChests;
 };
 
+/* 
+Requirements: 
+(1) = 2 wood
+(2) = 2 Iron Ingots
+(3) = Lighting + Furnishing
+(4) = Pickaxe + Emerald
+(5) = Wet Sponge
+(6) = Totem of Undying 
+(7) = 2 Lighting
+(8) = 2 Furnishing
+(9) = Wood + Iron Ingot
+(10) = 2 Food
+(11) = Crossbow + Food
+(12) = Sword + Iron Armor
+*/
+
 int main() {
 
+    srand(time(NULL));
     assignChestValues();
 
     return 0;
@@ -79,7 +87,7 @@ int main() {
 /*
 List of everything i have to do
 
-- Random chest generation -> Function
+- Random chest generation -> Function ((- DONE -))
 - Clone multiple of the biome card, 60 in total -> Function
 - Link all items to the list of biome cards -> .h file
 - Make it so that each card also has a deadliness rate that can have mobs

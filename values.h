@@ -49,35 +49,12 @@ int specials[4] = {itemValues["Map"], itemValues["Spyglass"], itemValues["Totem 
 
 int baseHunger = 6;
 
-class biome {
-    public:
-        int priceHunger;
-        int item;
-        bool turnedOver;
-};
-
 class mobCard {
     public:
         int priceHunger;
         int currency;
         bool killed;
 };
-
-/* 
-Requirements: 
-(1) = 2 wood
-(2) = 2 Iron Ingots
-(3) = Lighting + Furnishing
-(4) = Pickaxe + Emerald
-(5) = Wet Sponge
-(6) = Totem of Undying 
-(7) = 2 Lighting
-(8) = 2 Furnishing
-(9) = Wood + Iron Ingot
-(10) = 2 Food
-(11) = Crossbow + Food
-(12) = Sword + Iron Armor
-*/
 
 class chest {
     public:
@@ -100,6 +77,20 @@ chest ten;
 chest eleven;
 chest twelve; 
 
+class biome {
+    public:
+        int priceHunger;
+        bool meetsBonusReqs;
+        int item;
+        bool turnedOver;
+        bool mobDanger;
+        bool hasPick;
+        bool hasSword;
+
+        biome(int p, bool mbr, int i, bool t, bool m, bool hP, bool hS) : 
+            priceHunger(p), meetsBonusReqs(mbr), item(i), turnedOver(t), mobDanger(m), hasPick(hP), hasSword(hS) {};
+};
+
 typedef std::vector<biome> array;
 
 
@@ -111,27 +102,137 @@ biome vilToolsmith;
 biome vilWeaponsmith;
 biome vilCartographer;
 biome vilFarmer;
-biome woods;
-biome cherryBlossom;
-biome lushCave;
-biome geode;
-biome taiga;
-biome shipwreck;
-biome jungle;
-biome desertTemple;
-biome illagerOutpost;
-biome mineshaft;
-biome witchHut;
-biome chasm;
-biome ruinedPortal;
-biome deepCave;
+
+biome woods1, woods2, woods3, woods4;
+
+biome cherryBlossom1, cherryBlossom2, cherryBlossom3;
+
+biome lushCave1, lushCave2, lushCave3, lushCave4;
+
+biome geode1, geode2, geode3;
+
+biome taiga1, taiga2, taiga3, taiga4;
+
+biome shipwreck1, shipwreck2, shipwreck3, shipwreck4;
+
+biome jungle1, jungle2, jungle3;
+
+biome desertTemple1, desertTemple2, desertTemple3, desertTemple4;
+
+biome illagerOutpost1, illagerOutpost2, illagerOutPost3;
+
+biome mineshaft1, mineshaft2, mineshaft3, mineshaft4;
+
+biome witchHut1, witchHut2, witchHut3, witchHut4;
+
+biome chasm1, chasm2, chasm3;
+
+biome ruinedPortal1, ruinedPortal2;
+
+biome deepCave1, deepCave2, deepCave3, deepCave4;
+
 biome woodlandMansion;
 biome oceanMonument;
 
+int main() {
+    inline biome vilLibrarian{1, false, itemValues["Bookshelf"] , false, false, false, false};
+    inline biome vilCleric{1, false, itemValues["Glowstone"] , false, false, false, false};
+    inline biome vilFletcher{1, false, itemValues["Crossbow"], false, false, false, false};
+    inline biome vilArmorsmith{1, false, itemValues["Iron Armor"], false, false, false, false};
+    inline biome vilLibrarian{1, false, itemValues["Bookshelf"] , false, false, false, false};
+    inline biome vilCleric{1, false, itemValues["Glowstone"] , false, false, false, false};
+    inline biome vilFletcher{1, false, itemValues["Crossbow"], false, false, false, false};
+    inline biome vilArmorsmith{1, false, itemValues["Iron Armor"], false, false, false, false};
+
+    inline biome woods1{2, false, itemValues["Wood"], false, false, false, false};
+    inline biome woods2{2, false, itemValues["Wood"], false, false, false, false};
+    inline biome woods3{2, false, itemValues["Potted Flower"], false, false, false, false};
+    inline biome woods4{2, false, itemValues["Apple"], false, false, false, false};
+
+    inline biome cherryBlossom1{2, false, itemValues["Wood"], false, false, false, false};
+    inline biome cherryBlossom2{2, false, itemValues["Spyglass"], false, false, false, false};
+    inline biome cherryBlossom3{2, false, itemValues["Iron Pickaxe"], false, false, false, false};
+
+    inline biome lushCave1{2, false, itemValues["Spyglass"], false, false, false, false};
+    inline biome lushCave2{2, false, itemValues["Glowberry"], false, false, false, false};
+    inline biome lushCave3{2, false, itemValues["Iron Ingot"], false, true, false, false};
+    inline biome lushCave4{2, false, itemValues["Iron Armor"], false, false, false, false};
+
+    inline biome geode1{2, false, itemValues["Iron Sword"], false, false, false, false};
+    inline biome geode2{2, false, itemValues["Pickaxe"], false, false, false, false};
+    inline biome geode3{2, false, itemValues["Spyglass"], false, false, false, false};
+
+    inline biome taiga1{3, false, itemValues["Wildberry"], false, false, false, false};
+    inline biome taiga2{3, false, itemValues["Iron Armor"], false, false, false, false};
+    inline biome taiga3{3, false, itemValues["Jack O'Lantern"], false, false, false, false};
+    inline biome taiga4{3, false, itemValues["Wood"], false, false, false, false};
+
+    inline biome shipwreck1{3, false, itemValues["Map"], false, false, false, false};
+    inline biome shipwreck2{3, false, itemValues["Carrot"], false, false, false, false};
+    inline biome shipwreck3{3, false, itemValues["Sea Lantern"], false, false, false, false};
+    inline biome shipwreck4{3, false, itemValues["Iron Armor"], false, false, false, false};
+
+    inline biome jungle1{3, false, itemValues["Crossbow"], false, false, false, false};
+    inline biome jungle1{3, false, itemValues["Melon"], false, false, false, false};
+    inline biome jungle1{3, false, itemValues["Wood"], false, false, false, false};
+
+    inline biome desertTemple1{3, false, itemValues["Spyglass"], false, false, false, false};
+    inline biome desertTemple2{3, false, itemValues["Clay Pot"], false, false, false, false};
+    inline biome desertTemple3{3, false, itemValues["Emerald"], false, true, false, false};
+    inline biome desertTemple4{3, false, itemValues["Gold Sword"], false, true, false, false};
+
+    inline biome illagerOutpost1{3, false, itemValues["Illager Banner"], false, false, false, false};
+    inline biome illagerOutpost2{3, false, itemValues["Crossbow"], false, true, false, false};
+    inline biome illagerOutpost3{3, false, itemValues["Diamond Pickaxe"], false, true, false, false};
+
+    inline biome mineshaft1{3, false, itemValues["Torch"], false, false, false, false};
+    inline biome mineshaft2{3, false, itemValues["Iron Ingot"], false, false, false, false};
+    inline biome mineshaft3{3, false, itemValues["Emerald"], false, true, false, false};
+    inline biome mineshaft4{3, false, itemValues["Iron Ingot"], false, true, false, false};
+
+    inline biome witchHut1{3, false, itemValues["Crossbow"], false, false, false, false};
+    inline biome witchHut2{3, false, itemValues["Gold Pickaxe"], false, false, false, false};
+    inline biome witchHut3{3, false, itemValues["Cauldron"], false, true, false, false};
+    inline biome witchHut4{3, false, itemValues["Froglight"], false, true, false, false};
+
+    inline biome chasm1{4, false, itemValues["Iron Armor"], false, false, false, false};
+    inline biome chasm2{4, false, itemValues["Iron Ingot"], false, false, false, false};
+    inline biome chasm3{4, false, itemValues["Emerald"], false, false, false, false};
+
+    inline biome ruinedPortal1{4, false, itemValues["Gold Apple"], false, false, false, false};
+    inline biome ruinedPortal2{4, false, itemValues["Gold Sword"], false, false, false, false};
+
+    inline biome deepCave1{4, false, itemValues["Emerald"], false, false, false, false};
+    inline biome deepCave2{4, false, itemValues["Iron Ingot"], false, true, false, false};
+    inline biome deepCave3{4, false, itemValues["Emerald"], false, true, false, false};
+    inline biome deepCave4{4, false, itemValues["Diamond Sword"], false, true, false, false};
+
+    inline biome woodlandMansion{7, false, itemValues["Totem of Undying"], false, true, false, false};
+    inline biome oceanMonument{7, false, itemValues["Emerald"], false, true, false, false};
 
 
-array biomeArr = {vilLibrarian, vilCleric, vilFletcher, vilArmorsmith, vilToolsmith, vilWeaponsmith, vilCartographer, vilFarmer, woods, 
-    cherryBlossom, lushCave, geode, taiga, shipwreck, jungle, desertTemple, illagerOutpost, mineshaft, witchHut, chasm, ruinedPortal, deepCave, woodlandMansion, oceanMonument};
+
+
+    return 0;
+}
+
+array biomeArr = {vilLibrarian, vilCleric, vilFletcher, vilArmorsmith, vilToolsmith, vilWeaponsmith, vilCartographer, vilFarmer, 
+    woods1, woods2, woods3, woods4, 
+    cherryBlossom1, cherryBlossom2, cherryBlossom3, 
+    lushCave1, lushCave2, lushCave3, lushCave4, 
+    geode1, geode2, geode3, 
+    taiga1, taiga2, taiga3, taiga4,
+    shipwreck1, shipwreck2, shipwreck3, shipwreck4,
+    jungle1, jungle2, jungle3,
+    desertTemple1, desertTemple2, desertTemple3, desertTemple4, 
+    illagerOutpost1, illagerOutpost2, illagerOutPost3,
+    mineshaft1, mineshaft2, mineshaft3, mineshaft4,
+    witchHut1, witchHut2, witchHut3, witchHut4,
+    chasm1, chasm2, chasm3,
+    ruinedPortal1, ruinedPortal2,
+    deepCave1, deepCave2, deepCave3, deepCave4,
+    woodlandMansion, oceanMonument
+};
 
 // Every landscape has what?
 // Hunger price, item, 
